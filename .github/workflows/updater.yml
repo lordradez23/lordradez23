@@ -32,16 +32,22 @@ jobs:
           git pull --rebase origin main
           git push
 
-      - name: Generate and commit metrics
-        uses: xxspell/metrics-generator@main
-        with:
-          target_repository: lordradez23/lordradez23
-          target_branch: main
-          access_token: ${{ secrets.METRICS_ACCESS_TOKEN }}
-          user_name: ${{ secrets.METRICS_USER_NAME }}
-          lastfm_token: ${{ secrets.LASTFM_TOKEN }}
-          lastfm_user: ${{ secrets.LASTFM_USER }}
-          excluded_repos: ${{ secrets.METRICS_EXCLUDED_REPOS }}
-          excluded_languages: "Python, Swift, Jinja, Go, Makefile"
-          git_user_name: "GitHub Action"
-          git_user_email: "action@github.com"
+      - name: Install dependencies
+        run: pip install aiohttp lxml loguru python-dateutil
+
+      - name: Generate metrics
+        run: python metrics/today.py
+        env:
+          ACCESS_TOKEN: ${{ secrets.METRICS_ACCESS_TOKEN }}
+          USER_NAME: ${{ secrets.METRICS_USER_NAME }}
+          LASTFM_TOKEN: ${{ secrets.LASTFM_TOKEN }}
+          LASTFM_USER: ${{ secrets.LASTFM_USER }}
+          EXCLUDED_REPOS: ${{ secrets.METRICS_EXCLUDED_REPOS }}
+          EXCLUDED_LANGUAGES: "Python, Swift, Jinja, Go, Makefile"
+
+      - name: Commit and push metrics
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add dark_mode.svg light_mode.svg cache/
+          git diff --staged --quiet || (git commit -m "Update GitHub metrics [$(date)]" && git push)
