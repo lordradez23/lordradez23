@@ -1,8 +1,8 @@
 <div align="center">
-  <a href="https://github.com/lordradez23/LORD_RADEEZ.EXE">
+  <a href="https://github.com/lordradez23/lordradez23">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lordradez23/LORD_RADEEZ.EXE/main/dark_mode.svg">
-      <img alt="lordradeez.exe metrics" src="https://raw.githubusercontent.com/lordradez23/LORD_RADEEZ.EXE/main/light_mode.svg">
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lordradez23/lordradez23/main/dark_mode.svg">
+      <img alt="lordradeez.exe metrics" src="https://raw.githubusercontent.com/lordradez23/lordradez23/main/light_mode.svg">
     </picture>
   </a>
 </div>
