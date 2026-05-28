@@ -22,7 +22,11 @@ from svg_header import make_header_tail
 # Issues and pull requests permissions not needed at the moment, but may be used in the future
 HEADERS = {'authorization': 'token '+ os.environ['ACCESS_TOKEN']}
 PROXY = os.environ.get('PROXY')
-USER_NAME = os.environ['USER_NAME']
+# Detect the correct user name: try environment variable first, then fallback to repo owner if in GHA
+USER_NAME = os.environ.get('USER_NAME')
+if not USER_NAME or USER_NAME == 'xxspell':
+    USER_NAME = os.environ.get('GITHUB_REPOSITORY_OWNER') or os.environ.get('GITHUB_REPOSITORY', '').split('/')[0] or 'lordradez23'
+
 EXCLUDED_REPOS = os.environ.get('EXCLUDED_REPOS', '').split(',') if os.environ.get('EXCLUDED_REPOS') else []
 EXCLUDED_LANGUAGES = os.environ.get('EXCLUDED_LANGUAGES', '').split(',') if os.environ.get('EXCLUDED_LANGUAGES') else [] #only for most languages used
 LASTFM_TOKEN = os.environ.get('LASTFM_TOKEN')

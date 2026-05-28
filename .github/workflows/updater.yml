@@ -39,11 +39,11 @@ jobs:
         run: python metrics/today.py
         env:
           ACCESS_TOKEN: ${{ secrets.METRICS_ACCESS_TOKEN }}
-          USER_NAME: ${{ secrets.METRICS_USER_NAME }}
+          USER_NAME: ${{ github.repository_owner }}
           LASTFM_TOKEN: ${{ secrets.LASTFM_TOKEN }}
           LASTFM_USER: ${{ secrets.LASTFM_USER }}
           EXCLUDED_REPOS: ${{ secrets.METRICS_EXCLUDED_REPOS }}
-          EXCLUDED_LANGUAGES: "Python, Swift, Jinja, Go, Makefile"
+          EXCLUDED_LANGUAGES: "Jinja, Makefile"
 
       - name: Commit and push metrics
         run: |
