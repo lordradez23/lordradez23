@@ -32,7 +32,7 @@ def justify_text(new_text, length=0, use_k=False):
     return dot_string, new_text
 
 
-def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None):
+def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None):
     repo_dots, repo_val = justify_text(repo_data, 6)
     star_dots, star_val = justify_text(star_data, 14)
     commit_dots, commit_val = justify_text(commit_data, 23)
@@ -117,7 +117,12 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
     loc_del_dots = ''
 
     svg += f'''
-    <tspan x="{x}" y="{y_pos_base}" class="cc">. </tspan><tspan class="key">Lines of Code on GitHub</tspan>:<tspan class="cc" id="loc_data_dots">{loc_dots}</tspan><tspan class="value" id="loc_data">{loc_val}</tspan> ( <tspan class="addColor" id="loc_add">{loc_add_val}</tspan><tspan class="addColor">++</tspan>, <tspan id="loc_del_dots">{loc_del_dots}</tspan><tspan class="delColor" id="loc_del">{loc_del_val}</tspan><tspan class="delColor">--</tspan> )
-</text>'''
+    <tspan x="{x}" y="{y_pos_base}" class="cc">. </tspan><tspan class="key">Lines of Code on GitHub</tspan>:<tspan class="cc" id="loc_data_dots">{loc_dots}</tspan><tspan class="value" id="loc_data">{loc_val}</tspan> ( <tspan class="addColor" id="loc_add">{loc_add_val}</tspan><tspan class="addColor">++</tspan>, <tspan id="loc_del_dots">{loc_del_dots}</tspan><tspan class="delColor" id="loc_del">{loc_del_val}</tspan><tspan class="delColor">--</tspan> )'''
+
+    if achievements:
+        ach_dots, ach_val = justify_text(", ".join(achievements), 10)
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">{ach_dots}</tspan><tspan class="value" id="achievements_data">{ach_val}</tspan>'
+
+    svg += '\n</text>'
 
     return svg

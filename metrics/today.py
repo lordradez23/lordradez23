@@ -656,6 +656,16 @@ async def main():
             'contributed': None,
         }
 
+        # --- MANUAL ACHIEVEMENTS ---
+        # List the achievements you want to show in the terminal.
+        # Set to None or [] to hide this section.
+        MANUAL_ACHIEVEMENTS = [
+            'Pair Extraordinaire',
+            'Quickdraw',
+            'Pull Shark',
+            'YOLO'
+        ]
+
         # If you want to manually set your languages, fill this list. 
         # Set it to None to use automatic GitHub stats.
         MANUAL_LANG_OVERRIDE = [
@@ -743,6 +753,7 @@ async def main():
                 loc_del=loc_data[1],
                 recent_commit_data=recent_commits,
                 streak_data=streak,
+                achievements=MANUAL_ACHIEVEMENTS,
             )
 
         github_stats_svg, github_stats_time = await perf_counter(github_stats_getter)
