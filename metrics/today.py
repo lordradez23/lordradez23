@@ -672,7 +672,7 @@ async def main():
                 headers=HEADERS,
                 excluded_repos=get_excluded_list(EXCLUDED_REPOS),
                 excluded_languages=get_excluded_list(EXCLUDED_LANGUAGES),
-            ) if not MANUAL_LANG_OVERRIDE else asyncio.sleep(0, result=[]),
+            ) if MANUAL_LANG_OVERRIDE is None else asyncio.sleep(0, result=[]),
         ]
 
         (
@@ -684,11 +684,10 @@ async def main():
             (follower_data, follower_time),
             (lastfm_svg, lastfm_time),
             (recent_commits, streak),
-            most_used_languages,
+            most_used_languages_authed,
         ) = await asyncio.gather(*metrics_tasks)
 
-        if MANUAL_LANG_OVERRIDE:
-            most_used_languages = MANUAL_LANG_OVERRIDE
+        most_used_languages = MANUAL_LANG_OVERRIDE if MANUAL_LANG_OVERRIDE is not None else most_used_languages_authed
 
         formatter('LOC (cached)', loc_time) if total_loc[-1] else formatter('LOC (no cache)', loc_time)
         formatter('commit calculation', commit_time)
