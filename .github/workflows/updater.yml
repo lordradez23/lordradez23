@@ -1,0 +1,47 @@
+name: Metrics
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  # Lines below let you run workflow manually and on each commit
+  workflow_dispatch:
+  push: {branches: ["master", "main"]}
+
+jobs:
+  update-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Rotate Art
+        run: python rotate_art.py
+
+      - name: Generate and commit metrics
+        uses: lordradez23/metrics-generator/action.yml@main
+        with:
+          target_repository: lordradez23
+          target_branch: main
+          access_token: ${{ secrets.METRICS_ACCESS_TOKEN }}
+          user_name: ${{ secrets.METRICS_USER_NAME }}
+          proxy: ${{ secrets.METRICS_PROXY }}
+          excluded_repos: ${{ secrets.METRICS_EXCLUDED_REPOS }}
+          git_user_name: ${{ secrets.METRICS_GIT_USER_NAME }}
+          git_user_email: ${{ secrets.METRICS_GIT_USER_EMAIL }}
+
+
+
+
+
+
+
+
+
+
+
+
+
