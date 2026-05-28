@@ -22,12 +22,14 @@ jobs:
         run: python rotate_art.py
 
       - name: Generate and commit metrics
-        uses: lordradez23/metrics-generator/action.yml@main
+        uses: xxspell/metrics-generator@main
         with:
-          target_repository: lordradez23
+          target_repository: lordradez23/lordradez23
           target_branch: main
           access_token: ${{ secrets.METRICS_ACCESS_TOKEN }}
           user_name: ${{ secrets.METRICS_USER_NAME }}
+          lastfm_token: ${{ secrets.LASTFM_TOKEN }}
+          lastfm_user: ${{ secrets.LASTFM_USER }}
           proxy: ${{ secrets.METRICS_PROXY }}
           excluded_repos: ${{ secrets.METRICS_EXCLUDED_REPOS }}
           git_user_name: ${{ secrets.METRICS_GIT_USER_NAME }}
