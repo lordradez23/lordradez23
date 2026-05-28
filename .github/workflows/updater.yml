@@ -11,15 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.METRICS_ACCESS_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Rotate Art
         run: python rotate_art.py
+
+      - name: Commit rotated art to README
+        run: |
+          git config --local user.name "GitHub Action"
+          git config --local user.email "action@github.com"
+          git add README.md
+          git diff --staged --quiet || git commit -m "Rotate ASCII art [$(date)]"
+          git push
 
       - name: Generate and commit metrics
         uses: xxspell/metrics-generator@main
@@ -30,20 +40,6 @@ jobs:
           user_name: ${{ secrets.METRICS_USER_NAME }}
           lastfm_token: ${{ secrets.LASTFM_TOKEN }}
           lastfm_user: ${{ secrets.LASTFM_USER }}
-          proxy: ${{ secrets.METRICS_PROXY }}
           excluded_repos: ${{ secrets.METRICS_EXCLUDED_REPOS }}
-          git_user_name: ${{ secrets.METRICS_GIT_USER_NAME }}
-          git_user_email: ${{ secrets.METRICS_GIT_USER_EMAIL }}
-
-
-
-
-
-
-
-
-
-
-
-
-
+          git_user_name: "GitHub Action"
+          git_user_email: "action@github.com"
