@@ -42,7 +42,9 @@ LANGUAGE_COLORS = {
     'JSON': '#292929',
     'XML': '#0060ac',
     'Markdown': '#083fa1',
-    'Text': '#cccccc',  # Default for unknown
+    'Text': '#cccccc',
+    'Next.js': '#ffffff',
+    'Tailwind CSS': '#38bdf8',
 }
 
 def human_readable_size(size_in_bytes):
