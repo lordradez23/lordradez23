@@ -645,6 +645,18 @@ async def main():
         age_data, age_time = await perf_counter(daily_readme, datetime.datetime(2006, 6, 1))
         formatter('age calculation', age_time)
 
+        # --- MANUAL OVERRIDE SECTION ---
+        # If you want to manually set your languages, fill this list. 
+        # Set it to None to use automatic GitHub stats.
+        MANUAL_LANG_OVERRIDE = [
+            {'name': 'Next.js', 'color': '#ffffff', 'percentage': 35.0, 'bytes_count': 1200000},
+            {'name': 'TypeScript', 'color': '#2b7489', 'percentage': 25.0, 'bytes_count': 900000},
+            {'name': 'Tailwind CSS', 'color': '#38bdf8', 'percentage': 15.0, 'bytes_count': 500000},
+            {'name': 'Python', 'color': '#3572A5', 'percentage': 15.0, 'bytes_count': 500000},
+            {'name': 'JavaScript', 'color': '#c9bb4d', 'percentage': 10.0, 'bytes_count': 300000},
+        ]
+        # -------------------------------
+
         metrics_tasks = [
             perf_counter(loc_query, session, ['OWNER', 'COLLABORATOR', 'ORGANIZATION_MEMBER'], 7),
             perf_counter(commit_counter, 7),
@@ -660,7 +672,7 @@ async def main():
                 headers=HEADERS,
                 excluded_repos=get_excluded_list(EXCLUDED_REPOS),
                 excluded_languages=get_excluded_list(EXCLUDED_LANGUAGES),
-            ),
+            ) if not MANUAL_LANG_OVERRIDE else asyncio.sleep(0, result=[]),
         ]
 
         (
@@ -674,6 +686,9 @@ async def main():
             (recent_commits, streak),
             most_used_languages,
         ) = await asyncio.gather(*metrics_tasks)
+
+        if MANUAL_LANG_OVERRIDE:
+            most_used_languages = MANUAL_LANG_OVERRIDE
 
         formatter('LOC (cached)', loc_time) if total_loc[-1] else formatter('LOC (no cache)', loc_time)
         formatter('commit calculation', commit_time)
