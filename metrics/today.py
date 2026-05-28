@@ -646,6 +646,16 @@ async def main():
         formatter('age calculation', age_time)
 
         # --- MANUAL OVERRIDE SECTION ---
+        # Set any of these to a number to override the automatic calculation.
+        # Set to None to use automatic GitHub stats.
+        MANUAL_STATS_OVERRIDE = {
+            'stars': 21,         # Override to 21 to match your GitHub UI
+            'repos': None,       # Set to a number to override, or None to keep automatic
+            'commits': None,
+            'followers': None,
+            'contributed': None,
+        }
+
         # If you want to manually set your languages, fill this list. 
         # Set it to None to use automatic GitHub stats.
         MANUAL_LANG_OVERRIDE = [
@@ -723,11 +733,11 @@ async def main():
                 x=390,
                 y=390,
                 fill_color='#c9d1d9',
-                commit_data=commit_data,
-                star_data=star_data,
-                repo_data=repo_data,
-                contrib_data=contrib_data,
-                follower_data=follower_data,
+                commit_data=commit_data if MANUAL_STATS_OVERRIDE['commits'] is None else MANUAL_STATS_OVERRIDE['commits'],
+                star_data=star_data if MANUAL_STATS_OVERRIDE['stars'] is None else MANUAL_STATS_OVERRIDE['stars'],
+                repo_data=repo_data if MANUAL_STATS_OVERRIDE['repos'] is None else MANUAL_STATS_OVERRIDE['repos'],
+                contrib_data=contrib_data if MANUAL_STATS_OVERRIDE['contributed'] is None else MANUAL_STATS_OVERRIDE['contributed'],
+                follower_data=follower_data if MANUAL_STATS_OVERRIDE['followers'] is None else MANUAL_STATS_OVERRIDE['followers'],
                 loc_total=loc_data[2],
                 loc_add=loc_data[0],
                 loc_del=loc_data[1],
