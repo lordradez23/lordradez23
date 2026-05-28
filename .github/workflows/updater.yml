@@ -42,5 +42,6 @@ jobs:
           lastfm_token: ${{ secrets.LASTFM_TOKEN }}
           lastfm_user: ${{ secrets.LASTFM_USER }}
           excluded_repos: ${{ secrets.METRICS_EXCLUDED_REPOS }}
+          excluded_languages: "Python, Swift, Jinja, Go, Makefile"
           git_user_name: "GitHub Action"
           git_user_email: "action@github.com"
