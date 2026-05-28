@@ -8,9 +8,8 @@
 </div>
 
 <div align="center" style="margin-top: 20px;">
-  <a href="https://lordradeez.com">Portfolio</a> | 
-  <a href="https://linkedin.com/in/lordradeez">LinkedIn</a> | 
-  <a href="https://twitter.com/lordradeez">Twitter</a>
+  <a href="https://lordradeez-webfolio.vercel.app/">Portfolio</a> | 
+  <a href="https://www.linkedin.com/in/anointed-ekabua-8544283a2?utm_source=share_via&utm_content=profile&utm_medium=member_android">LinkedIn</a>
 </div>
 
 <br>
