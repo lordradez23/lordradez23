@@ -120,8 +120,25 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
     <tspan x="{x}" y="{y_pos_base}" class="cc">. </tspan><tspan class="key">Lines of Code on GitHub</tspan>:<tspan class="cc" id="loc_data_dots">{loc_dots}</tspan><tspan class="value" id="loc_data">{loc_val}</tspan> ( <tspan class="addColor" id="loc_add">{loc_add_val}</tspan><tspan class="addColor">++</tspan>, <tspan id="loc_del_dots">{loc_del_dots}</tspan><tspan class="delColor" id="loc_del">{loc_del_val}</tspan><tspan class="delColor">--</tspan> )'''
 
     if achievements:
-        ach_dots, ach_val = justify_text(", ".join(achievements), 10)
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">{ach_dots}</tspan><tspan class="value" id="achievements_data">{ach_val}</tspan>'
+        # Split achievements into lines of max 2-3 items to avoid overflow
+        chunk_size = 2
+        ach_chunks = [achievements[i:i + chunk_size] for i in range(0, len(achievements), chunk_size)]
+        
+        for i, chunk in enumerate(ach_chunks):
+            ach_text = ", ".join(chunk)
+            if i < len(ach_chunks) - 1:
+                ach_text += ","
+            
+            label = "Achievements" if i == 0 else ""
+            label_dots = 10 if i == 0 else 23 # Align second line with the first value
+            
+            ach_dots, ach_val = justify_text(ach_text, label_dots)
+            y_offset = y_pos_base + 20 + (i * 20)
+            
+            if i == 0:
+                svg += f'\n    <tspan x="{x}" y="{y_offset}" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">{ach_dots}</tspan><tspan class="value" id="achievements_data">{ach_val}</tspan>'
+            else:
+                svg += f'\n    <tspan x="{x}" y="{y_offset}" class="cc">. </tspan><tspan class="cc" id="ach_dots_{i}">{ach_dots}</tspan><tspan class="value" id="achievements_data_{i}">{ach_val}</tspan>'
 
     svg += '\n</text>'
 
