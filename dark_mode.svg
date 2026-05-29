@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="985px" height="580px" font-size="16px">
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ConsolasFallback,Consolas,monospace" width="985px" height="530px" font-size="16px">
 <style>
 @font-face {
 src: local('Consolas'), local('Consolas Bold');
@@ -16,7 +16,7 @@ size-adjust: 109%;
 .cc {fill: #004411;}
 text, tspan {white-space: pre;}
 </style>
-<rect width="985px" height="580px" fill="#161b22" rx="15"/>
+<rect width="985px" height="530px" fill="#161b22" rx="15"/>
     <text x="15" y="30" fill="#c9d1d9" class="ascii" id="ascii" data-filename="arts/31.txt">
     <tspan x="15" y="30">                           .-.</tspan>
     <tspan x="15" y="50">                          {{@}}</tspan>
@@ -64,6 +64,4 @@ text, tspan {white-space: pre;}
     <tspan x="390" y="470" class="cc">. </tspan><tspan class="key">Lines of Code on GitHub</tspan>:<tspan class="cc" id="loc_data_dots"> </tspan><tspan class="value" id="loc_data">973,579</tspan> ( <tspan class="addColor" id="loc_add">1,123,187</tspan><tspan class="addColor">++</tspan>, <tspan id="loc_del_dots"/><tspan class="delColor" id="loc_del">149k</tspan><tspan class="delColor">--</tspan> )
     <tspan x="390" y="490" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">.......... </tspan><tspan class="value" id="achievements_data">Pair Extraordinaire, Quickdraw,</tspan>
     <tspan x="390" y="510" class="cc">. </tspan><tspan class="cc" id="ach_dots_1">....................... </tspan><tspan class="value" id="achievements_data_1">Pull Shark, YOLO</tspan>
-    <tspan x="390" y="530" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc">........... </tspan><tspan x="650" class="value" id="sparkline_top">   ▂▄▇█▆▅▄▃        </tspan>
-    <tspan x="390" y="550" class="cc">. </tspan><tspan class="cc">.......................... </tspan><tspan x="650" class="value" id="sparkline_bot">   ▂▆███████▇▆▄▃   </tspan>
 </text></svg>

@@ -161,28 +161,21 @@ async def get_recent_commits_and_streak(session):
 
 def generate_sparkline(counts):
     """
-    Generates a 2-line high-resolution sparkline (top and bottom rows)
+    Generates a sparkline string from a list of counts
     """
     if not counts:
-        return "", ""
+        return ""
     
     chars = " ▂▃▄▅▆▇█"
     max_val = max(counts)
     if max_val == 0:
-        return " " * len(counts), " " * len(counts)
+        return chars[0] * len(counts)
     
-    top_line = ""
-    bot_line = ""
+    line = ""
     for count in counts:
-        # Scale to 16 levels (0-15)
-        val = int((count / max_val) * 15)
-        if val <= 7:
-            top_line += " "
-            bot_line += chars[val]
-        else:
-            top_line += chars[val-8]
-            bot_line += "█"
-    return top_line, bot_line
+        index = int((count / max_val) * (len(chars) - 1))
+        line += chars[index]
+    return line
 
 
 
@@ -716,7 +709,7 @@ async def main():
             (contrib_data, contrib_time),
             (follower_data, follower_time),
             (lastfm_svg, lastfm_time),
-            (recent_commits, streak, daily_counts),
+            (recent_commits, streak),
             most_used_languages_authed,
         ) = await asyncio.gather(*metrics_tasks)
 
@@ -767,7 +760,6 @@ async def main():
                 recent_commit_data=recent_commits,
                 streak_data=streak,
                 achievements=MANUAL_ACHIEVEMENTS,
-                sparkline=generate_sparkline(daily_counts),
             )
 
         github_stats_svg, github_stats_time = await perf_counter(github_stats_getter)

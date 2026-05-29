@@ -32,7 +32,7 @@ def justify_text(new_text, length=0, use_k=False):
     return dot_string, new_text
 
 
-def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None, sparkline=None):
+def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None):
     repo_dots, repo_val = justify_text(repo_data, 6)
     star_dots, star_val = justify_text(star_data, 14)
     commit_dots, commit_val = justify_text(commit_data, 23)
@@ -140,17 +140,6 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
             else:
                 svg += f'\n    <tspan x="{x}" y="{y_offset}" class="cc">. </tspan><tspan class="cc" id="ach_dots_{i}">{ach_dots}</tspan><tspan class="value" id="achievements_data_{i}">{ach_val}</tspan>'
         y_pos_base = y_offset
-
-    if sparkline:
-        top_sp, bot_sp = sparkline
-        # Use a fixed X offset (e.g. 650) to ensure perfect vertical alignment regardless of font widths
-        graph_x = x + 260 
-        
-        # Top row: Label + Dots (to fill space) + Sparkline at fixed X
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc">........... </tspan><tspan x="{graph_x}" class="value" id="sparkline_top">{top_sp}</tspan>'
-        
-        # Bottom row: Dots (to fill space) + Sparkline at SAME fixed X
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+40}" class="cc">. </tspan><tspan class="cc">.......................... </tspan><tspan x="{graph_x}" class="value" id="sparkline_bot">{bot_sp}</tspan>'
 
     svg += '\n</text>'
 
