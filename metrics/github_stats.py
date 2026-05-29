@@ -143,12 +143,14 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
 
     if sparkline:
         top_sp, bot_sp = sparkline
-        sp_dots, sp_val = justify_text(top_sp, 11)
-        # Top row prefix length: ". " (2) + "Activity (14d)" (14) + ":" (1) + sp_dots (12) = 29
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc" id="sp_dots_top">{sp_dots}</tspan><tspan class="value" id="sparkline_top">{top_sp}</tspan>'
-        # Bottom row prefix: ". " (2) + bot_dots (27) = 29
-        bot_dots = "." * 26 + " " 
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+40}" class="cc">. </tspan><tspan class="cc" id="sp_dots_bot">{bot_dots}</tspan><tspan class="value" id="sparkline_bot">{bot_sp}</tspan>'
+        # Use a fixed X offset (e.g. 650) to ensure perfect vertical alignment regardless of font widths
+        graph_x = x + 260 
+        
+        # Top row: Label + Dots (to fill space) + Sparkline at fixed X
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc">........... </tspan><tspan x="{graph_x}" class="value" id="sparkline_top">{top_sp}</tspan>'
+        
+        # Bottom row: Dots (to fill space) + Sparkline at SAME fixed X
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+40}" class="cc">. </tspan><tspan class="cc">.......................... </tspan><tspan x="{graph_x}" class="value" id="sparkline_bot">{bot_sp}</tspan>'
 
     svg += '\n</text>'
 
