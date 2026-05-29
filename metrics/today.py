@@ -161,21 +161,28 @@ async def get_recent_commits_and_streak(session):
 
 def generate_sparkline(counts):
     """
-    Generates a sparkline string from a list of counts
+    Generates a 2-line high-resolution sparkline (top and bottom rows)
     """
     if not counts:
-        return ""
+        return "", ""
     
     chars = " ▂▃▄▅▆▇█"
     max_val = max(counts)
     if max_val == 0:
-        return chars[0] * len(counts)
+        return " " * len(counts), " " * len(counts)
     
-    line = ""
+    top_line = ""
+    bot_line = ""
     for count in counts:
-        index = int((count / max_val) * (len(chars) - 1))
-        line += chars[index]
-    return line
+        # Scale to 16 levels (0-15)
+        val = int((count / max_val) * 15)
+        if val <= 7:
+            top_line += " "
+            bot_line += chars[val]
+        else:
+            top_line += chars[val-8]
+            bot_line += "█"
+    return top_line, bot_line
 
 
 

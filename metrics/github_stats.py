@@ -142,8 +142,13 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
         y_pos_base = y_offset
 
     if sparkline:
-        sp_dots, sp_val = justify_text(sparkline, 11)
-        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc" id="sp_dots">{sp_dots}</tspan><tspan class="value" id="sparkline_data">{sp_val}</tspan>'
+        top_sp, bot_sp = sparkline
+        sp_dots, sp_val = justify_text(top_sp, 11)
+        # Top row
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc" id="sp_dots_top">{sp_dots}</tspan><tspan class="value" id="sparkline_top">{top_sp}</tspan>'
+        # Bottom row
+        bot_dots = "." * (len(sp_dots) + 14) # Align under sparkline (14 is len of "Activity (14d)")
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+40}" class="cc">. </tspan><tspan class="cc" id="sp_dots_bot">{bot_dots} </tspan><tspan class="value" id="sparkline_bot">{bot_sp}</tspan>'
 
     svg += '\n</text>'
 
