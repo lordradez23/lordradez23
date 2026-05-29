@@ -32,7 +32,7 @@ def justify_text(new_text, length=0, use_k=False):
     return dot_string, new_text
 
 
-def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None):
+def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, achievements=None):
     repo_dots, repo_val = justify_text(repo_data, 6)
     star_dots, star_val = justify_text(star_data, 14)
     commit_dots, commit_val = justify_text(commit_data, 23)
@@ -48,23 +48,7 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
     <tspan x="{x}" y="{y+20}" class="cc">. </tspan><tspan class="key">Repos</tspan>:<tspan class="cc" id="repo_data_dots">{repo_dots}</tspan><tspan class="value" id="repo_data">{repo_val}</tspan> {{<tspan class="key">Contributed</tspan>:<tspan class="cc" id="contrib_data_dots">{contrib_dots}</tspan><tspan class="value" id="contrib_data">{contrib_val}</tspan>}}{pipe_prefix}| <tspan class="key">Stars</tspan>:<tspan class="cc" id="star_data_dots">{star_dots}</tspan><tspan class="value" id="star_data">{star_val}</tspan>
     <tspan x="{x}" y="{y+40}" class="cc">. </tspan><tspan class="key">Commits</tspan>:<tspan class="cc" id="commit_data_dots">{commit_dots}</tspan><tspan class="value" id="commit_data">{commit_val}</tspan> | <tspan class="key">Followers</tspan>:<tspan class="cc" id="follower_data_dots">{follower_dots}</tspan><tspan class="value" id="follower_data">{follower_val}</tspan>'''
 
-    if recent_commit_data is not None or streak_data is not None:
-        if recent_commit_data is not None:
-            recent_dots, recent_val = justify_text(recent_commit_data, 18)
-            recent_part = f'<tspan class="key">Commits (7d)</tspan>:<tspan class="cc" id="recent_commit_dots">{recent_dots}</tspan><tspan class="value" id="recent_commit_data">{recent_val}</tspan>'
-        else:
-            recent_part = ''
-
-        if streak_data is not None:
-            streak_dots, streak_val = justify_text(streak_data, 8)
-            streak_part = f' | <tspan class="key">Streak</tspan>:<tspan class="cc" id="streak_dots">{streak_dots}</tspan><tspan class="value" id="streak_data">{streak_val} days</tspan>'
-        else:
-            streak_part = ''
-
-        combined_part = recent_part + streak_part
-        svg += f'\n    <tspan x="{x}" y="{y+60}" class="cc">. </tspan>{combined_part}'
-
-    y_pos_base = y + 80 if (recent_commit_data is not None or streak_data is not None) else y + 60
+    y_pos_base = y + 60
 
     loc_total_int = int(str(loc_total).replace(',', ''))
     loc_add_int = int(str(loc_add).replace(',', ''))

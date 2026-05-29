@@ -97,8 +97,6 @@ def build_mock_github_stats_svg(fill_color: str):
         loc_total=3_520_267,
         loc_add=5_660_304,
         loc_del=2_140_037,
-        recent_commit_data=66,
-        streak_data=1,
     )
 
 

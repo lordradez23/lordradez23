@@ -93,89 +93,10 @@ async def graph_commits(session, start_date, end_date):
     return int(request['data']['user']['contributionsCollection']['contributionCalendar']['totalContributions'])
 
 
-async def get_recent_commits_and_streak(session):
-    """
-    Gets commit data for the last 14 days and calculates current streak
-    """
-    end_date = datetime.datetime.now(datetime.timezone.utc)
-    start_date = end_date - datetime.timedelta(days=366)
-
-    query = '''
-    query($start_date: DateTime!, $end_date: DateTime!, $login: String!) {
-        user(login: $login) {
-            contributionsCollection(from: $start_date, to: $end_date) {
-                contributionCalendar {
-                    weeks {
-                        contributionDays {
-                            date
-                            contributionCount
-                        }
-                    }
-                }
-            }
-        }
-    }'''
-
-    variables = {
-        'start_date': start_date.strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'end_date': end_date.strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'login': USER_NAME
-    }
-
-    try:
-        request = await simple_request(session, "get_recent_commits_and_streak", query, variables)
-        weeks = request['data']['user']['contributionsCollection']['contributionCalendar']['weeks']
-
-        all_days = []
-        for week in weeks:
-            all_days.extend(week['contributionDays'])
-
-        all_days.sort(key=lambda x: x['date'], reverse=True)
-
-        # Calculate streak
-        streak = 0
-        today_date = datetime.datetime.now(datetime.timezone.utc).date()
-        
-        for day in all_days:
-            day_date = datetime.datetime.strptime(day['date'], '%Y-%m-%d').date()
-            count = day['contributionCount']
-            if day_date == today_date:
-                if count > 0: streak += 1
-                else: continue
-            else:
-                if count > 0: streak += 1
-                else: break
-
-        # Get last 14 days for sparkline
-        daily_counts = [day['contributionCount'] for day in all_days[:14]]
-        daily_counts.reverse() # Show oldest to newest
-        
-        recent_commits_total = sum(all_days[:7][d]['contributionCount'] for d in range(7))
-        
-        return recent_commits_total, streak, daily_counts
-
-    except Exception as e:
-        logger.exception("Failed to get recent commits and streak")
-        return 0, 0, [0]*14
 
 
-def generate_sparkline(counts):
-    """
-    Generates a sparkline string from a list of counts
-    """
-    if not counts:
-        return ""
-    
-    chars = " ▂▃▄▅▆▇█"
-    max_val = max(counts)
-    if max_val == 0:
-        return chars[0] * len(counts)
-    
-    line = ""
-    for count in counts:
-        index = int((count / max_val) * (len(chars) - 1))
-        line += chars[index]
-    return line
+
+
 
 
 
@@ -691,7 +612,7 @@ async def main():
             perf_counter(graph_repos_stars, session, 'repos', ['OWNER', 'COLLABORATOR', 'ORGANIZATION_MEMBER']),
             perf_counter(follower_getter, session, USER_NAME),
             perf_counter(lastfm_getter, session, LASTFM_TOKEN, LASTFM_USER),
-            get_recent_commits_and_streak(session),
+
             get_most_used_languages(
                 session=session,
                 user_name=USER_NAME,
@@ -709,7 +630,7 @@ async def main():
             (contrib_data, contrib_time),
             (follower_data, follower_time),
             (lastfm_svg, lastfm_time),
-            (recent_commits, streak),
+
             most_used_languages_authed,
         ) = await asyncio.gather(*metrics_tasks)
 
@@ -757,8 +678,7 @@ async def main():
                 loc_total=loc_data[2],
                 loc_add=loc_data[0],
                 loc_del=loc_data[1],
-                recent_commit_data=recent_commits,
-                streak_data=streak,
+
                 achievements=MANUAL_ACHIEVEMENTS,
             )
 
