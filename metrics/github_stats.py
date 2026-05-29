@@ -32,7 +32,7 @@ def justify_text(new_text, length=0, use_k=False):
     return dot_string, new_text
 
 
-def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None):
+def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_data, contrib_data, follower_data, loc_total, loc_add, loc_del, recent_commit_data=None, streak_data=None, achievements=None, sparkline=None):
     repo_dots, repo_val = justify_text(repo_data, 6)
     star_dots, star_val = justify_text(star_data, 14)
     commit_dots, commit_val = justify_text(commit_data, 23)
@@ -139,6 +139,11 @@ def generate_github_stats_svg(x, y, fill_color, commit_data, star_data, repo_dat
                 svg += f'\n    <tspan x="{x}" y="{y_offset}" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">{ach_dots}</tspan><tspan class="value" id="achievements_data">{ach_val}</tspan>'
             else:
                 svg += f'\n    <tspan x="{x}" y="{y_offset}" class="cc">. </tspan><tspan class="cc" id="ach_dots_{i}">{ach_dots}</tspan><tspan class="value" id="achievements_data_{i}">{ach_val}</tspan>'
+        y_pos_base = y_offset
+
+    if sparkline:
+        sp_dots, sp_val = justify_text(sparkline, 11)
+        svg += f'\n    <tspan x="{x}" y="{y_pos_base+20}" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc" id="sp_dots">{sp_dots}</tspan><tspan class="value" id="sparkline_data">{sp_val}</tspan>'
 
     svg += '\n</text>'
 
