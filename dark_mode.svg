@@ -65,5 +65,5 @@ text, tspan {white-space: pre;}
     <tspan x="390" y="490" class="cc">. </tspan><tspan class="key">Achievements</tspan>:<tspan class="cc" id="ach_dots">.......... </tspan><tspan class="value" id="achievements_data">Pair Extraordinaire, Quickdraw,</tspan>
     <tspan x="390" y="510" class="cc">. </tspan><tspan class="cc" id="ach_dots_1">....................... </tspan><tspan class="value" id="achievements_data_1">Pull Shark, YOLO</tspan>
     <tspan x="390" y="530" class="cc">. </tspan><tspan class="key">Activity (14d)</tspan>:<tspan class="cc" id="sp_dots_top">........... </tspan><tspan class="value" id="sparkline_top">   ▂▄▇█▆▅▄▃        </tspan>
-    <tspan x="390" y="550" class="cc">. </tspan><tspan class="cc" id="sp_dots_bot">......................... </tspan><tspan class="value" id="sparkline_bot">  ▂▆███████▇▆▄▃    </tspan>
+    <tspan x="390" y="550" class="cc">. </tspan><tspan class="cc" id="sp_dots_bot">.......................... </tspan><tspan class="value" id="sparkline_bot">   ▂▆███████▇▆▄▃   </tspan>
 </text></svg>
