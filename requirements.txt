@@ -1,0 +1,5 @@
+aiohttp
+lxml
+loguru
+python-dateutil
+requests>=2.25.0

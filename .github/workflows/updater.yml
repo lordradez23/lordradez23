@@ -1,4 +1,4 @@
-name: Metrics
+name: GitHub Metrics Generator
 on:
   schedule:
     - cron: '0 23 * * *'
