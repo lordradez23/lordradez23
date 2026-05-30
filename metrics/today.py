@@ -576,8 +576,8 @@ async def main():
         # Set any of these to a number to override the automatic calculation.
         # Set to None to use automatic GitHub stats.
         MANUAL_STATS_OVERRIDE = {
-            'stars': 21,         # Override to 21 to match your GitHub UI
-            'repos': None,       # Set to a number to override, or None to keep automatic
+            'stars': None,
+            'repos': None,
             'commits': None,
             'followers': None,
             'contributed': None,
@@ -586,22 +586,11 @@ async def main():
         # --- MANUAL ACHIEVEMENTS ---
         # List the achievements you want to show in the terminal.
         # Set to None or [] to hide this section.
-        MANUAL_ACHIEVEMENTS = [
-            'Pair Extraordinaire',
-            'Quickdraw',
-            'Pull Shark',
-            'YOLO'
-        ]
+        MANUAL_ACHIEVEMENTS = None
 
         # If you want to manually set your languages, fill this list. 
         # Set it to None to use automatic GitHub stats.
-        MANUAL_LANG_OVERRIDE = [
-            {'name': 'Next.js', 'color': '#ffffff', 'percentage': 35.0, 'bytes_count': 1200000},
-            {'name': 'TypeScript', 'color': '#2b7489', 'percentage': 25.0, 'bytes_count': 900000},
-            {'name': 'Tailwind CSS', 'color': '#38bdf8', 'percentage': 15.0, 'bytes_count': 500000},
-            {'name': 'Python', 'color': '#3572A5', 'percentage': 15.0, 'bytes_count': 500000},
-            {'name': 'JavaScript', 'color': '#c9bb4d', 'percentage': 10.0, 'bytes_count': 300000},
-        ]
+        MANUAL_LANG_OVERRIDE = None
         # -------------------------------
 
         metrics_tasks = [
