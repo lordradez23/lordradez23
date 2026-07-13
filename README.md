@@ -7,12 +7,8 @@
   </a>
 </div>
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/lordradez23/lordradez23/main/ascii_avatar.svg" alt="ASCII Avatar" width="520" />
-</div>
-
 <div align="center" style="margin-top: 20px;">
-  <a href="https://lordradeezexe.vercel.app/">Portfolio</a> | 
+  <a href="https://lordradeez-webfolio.vercel.app/">Portfolio</a> | 
   <a href="https://www.linkedin.com/in/anointed-ekabua-8544283a2?utm_source=share_via&utm_content=profile&utm_medium=member_android">LinkedIn</a>
 </div>
 
